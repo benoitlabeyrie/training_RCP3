@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="com.sogeti.rental.ui.category"
+            class="com.sogeti.rental.ui.RentalPropertyView"
+            id="com.sogeti.rental.ui.rentalView"
+            name="Rental Property View"
+            restorable="true">
+      </view>
+      <category
+            id="com.sogeti.rental.ui.category"
+            name="Rental">
+      </category>
+   </extension>
+
+</plugin>
