@@ -5,7 +5,6 @@ import java.util.*;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
@@ -32,6 +31,7 @@ public class RentalAgencyView extends ViewPart {
 		Collection<RentalAgency> agencies = new ArrayList<>();
 		agencies.add(RentalCoreActivator.getAgency());
 		tv.setInput(agencies);
+		tv.expandAll();
 	}
 
 	/**
