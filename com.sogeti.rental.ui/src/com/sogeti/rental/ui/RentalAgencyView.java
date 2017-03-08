@@ -32,6 +32,8 @@ public class RentalAgencyView extends ViewPart {
 		agencies.add(RentalCoreActivator.getAgency());
 		tv.setInput(agencies);
 		tv.expandAll();
+		
+		getSite().setSelectionProvider(tv);
 	}
 
 	/**
