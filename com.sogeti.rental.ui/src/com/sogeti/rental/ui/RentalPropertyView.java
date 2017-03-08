@@ -56,13 +56,13 @@ public class RentalPropertyView extends ViewPart {
 		Label startDateTextLabel = new Label(locationDatesGroup, SWT.NONE);
 		startDateTextLabel.setText("du : ");
 		
-		Label startDateLabel = new Label(locationDatesGroup, SWT.NONE);
+		startDateLabel = new Label(locationDatesGroup, SWT.NONE);
 		startDateLabel.setText("New Label");
 		
 		Label endDateTextLabel = new Label(locationDatesGroup, SWT.NONE);
 		endDateTextLabel.setText("au :");
 		
-		Label endDateLabel = new Label(locationDatesGroup, SWT.NONE);
+		endDateLabel = new Label(locationDatesGroup, SWT.NONE);
 		endDateLabel.setAlignment(SWT.CENTER);
 		endDateLabel.setText("New Label");
 		
