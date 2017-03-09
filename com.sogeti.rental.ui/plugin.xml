@@ -6,6 +6,7 @@
       <view
             category="com.sogeti.rental.ui.category"
             class="com.sogeti.rental.ui.RentalPropertyView"
+            icon="icons/Rentals.png"
             id="com.sogeti.rental.ui.rentalView"
             name="Rental Property View"
             restorable="true">
@@ -17,9 +18,19 @@
       <view
             category="com.sogeti.rental.ui.category"
             class="com.sogeti.rental.ui.RentalAgencyView"
+            icon="icons/Agency.png"
             id="com.sogeti.rental.ui.RentalAgencyView"
             name="Rental Agency View">
       </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.sogeti.rental.ui.perspectives.RentalPerspective"
+            icon="icons/Agency.png"
+            id="com.sogeti.rental.ui.perspectives.RentalPerspective"
+            name="Rental">
+      </perspective>
    </extension>
 
 </plugin>
