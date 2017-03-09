@@ -46,5 +46,46 @@
             class="com.sogeti.rental.ui.prefs.RentalDefaultPreferences">
       </initializer>
    </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="com.sogeti.rental.ui.commands.helloworld"
+            name="Hello World">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="com.sogeti.rental.ui.handlers.HelloWorldHandler"
+            commandId="com.sogeti.rental.ui.commands.helloworld">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <command
+               commandId="com.sogeti.rental.ui.commands.helloworld"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.views.ResourceNavigator?after=additions">
+         <command
+               commandId="com.sogeti.rental.ui.commands.helloworld"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:com.sogeti.rental.ui.RentalAgencyView?after=additions">
+         <command
+               commandId="com.sogeti.rental.ui.commands.helloworld"
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
 
 </plugin>
