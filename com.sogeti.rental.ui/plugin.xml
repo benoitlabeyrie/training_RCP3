@@ -32,5 +32,19 @@
             name="Rental">
       </perspective>
    </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="com.sogeti.rental.ui.prefs.RentalPreferences"
+            id="com.sogeti.rental.ui.prefs.rental"
+            name="Colors">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.sogeti.rental.ui.prefs.RentalDefaultPreferences">
+      </initializer>
+   </extension>
 
 </plugin>
