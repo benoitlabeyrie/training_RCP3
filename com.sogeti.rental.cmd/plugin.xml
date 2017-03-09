@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="com.sogeti.rental.ui.cmd.activeCustomer">
+         <and>
+            <count
+                  value="1">
+            </count>
+            <iterate
+                  ifEmpty="false"
+                  operator="and">
+               <adapt
+                     type="com.opcoach.training.rental.Customer">
+               </adapt>
+            </iterate>
+         </and>
+      </definition>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="com.sogeti.rental.ui.cmds.CopyCustomerHandler"
+            commandId="org.eclipse.ui.edit.copy">
+         <activeWhen>
+            <reference
+                  definitionId="com.sogeti.rental.ui.cmd.activeCustomer">
+            </reference>
+         </activeWhen>
+         <enabledWhen>
+            <reference
+                  definitionId="com.sogeti.rental.ui.cmd.activeCustomer">
+            </reference>
+         </enabledWhen>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:com.sogeti.rental.ui.RentalAgencyView?after=additions">
+         <command
+               commandId="org.eclipse.ui.edit.copy"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <reference
+                     definitionId="com.sogeti.rental.ui.cmd.activeCustomer">
+               </reference>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+</plugin>
