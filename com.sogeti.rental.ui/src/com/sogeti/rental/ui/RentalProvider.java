@@ -8,16 +8,13 @@ import org.eclipse.jface.resource.StringConverter;
 import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Display;
 
 import com.opcoach.training.rental.Customer;
 import com.opcoach.training.rental.Rental;
 import com.opcoach.training.rental.RentalAgency;
 import com.opcoach.training.rental.RentalObject;
-import com.sogeti.rental.ui.prefs.RentalPreferences;
 
 public class RentalProvider extends LabelProvider implements ITreeContentProvider, IColorProvider, RentalUIConstants {
 
@@ -43,12 +40,6 @@ public class RentalProvider extends LabelProvider implements ITreeContentProvide
 		} else if (parentElement instanceof Node) {
 			return ((Node) parentElement).getChildren();
 		}
-		return null;
-	}
-
-	@Override
-	public Object getParent(Object element) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -164,24 +155,17 @@ public class RentalProvider extends LabelProvider implements ITreeContentProvide
 
 	@Override
 	public Color getForeground(Object element) {
-		if (element instanceof RentalAgency) {
-			return Display.getCurrent().getSystemColor(SWT.COLOR_CYAN);
-		} else if (element instanceof Customer) {
-			return getAColorFromPrefKey(RentalPreferences.PREFS_CUSTOMERS);
-		} else if (element instanceof Rental) {
-			return getAColorFromPrefKey(RentalPreferences.PREFS_RENTALS);
-		} else if (element instanceof RentalObject) {
-			return getAColorFromPrefKey(RentalPreferences.PREFS_OBJECTS);
-		} else {
-			return null;
-		}
+		String paletteId = RentalUIActivator.getDefault().getPreferenceStore().getString(PREF_PALETTE);
+		PaletteDescriptor p = RentalUIActivator.getDefault().getPaletteManager().get(paletteId);
+		return p.getProvider().getForeground(element);
 		
 	}
 
 	@Override
 	public Color getBackground(Object element) {
-		// TODO Auto-generated method stub
-		return null;
+		String paletteId = RentalUIActivator.getDefault().getPreferenceStore().getString(PREF_PALETTE);
+		PaletteDescriptor p = RentalUIActivator.getDefault().getPaletteManager().get(paletteId);
+		return p.getProvider().getBackground(element);
 	}
 	
 	@Override
@@ -213,6 +197,12 @@ public class RentalProvider extends LabelProvider implements ITreeContentProvide
 	
 	private Color getAColorFromPrefKey(String prefKey) {
 		return getAColor(RentalUIActivator.getDefault().getPreferenceStore().getString(prefKey));
+	}
+
+	@Override
+	public Object getParent(Object element) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

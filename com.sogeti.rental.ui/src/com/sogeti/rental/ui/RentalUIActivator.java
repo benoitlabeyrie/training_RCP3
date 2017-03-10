@@ -1,10 +1,17 @@
 package com.sogeti.rental.ui;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
+import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -21,10 +28,13 @@ public class RentalUIActivator extends AbstractUIPlugin implements RentalUIConst
 	// The shared instance
 	private static RentalUIActivator plugin;
 	
+	private Map<String, PaletteDescriptor> paletteManager = new HashMap<>();
+	
 	/**
 	 * The constructor
 	 */
 	public RentalUIActivator() {
+		
 	}
 
 	/*
@@ -34,7 +44,8 @@ public class RentalUIActivator extends AbstractUIPlugin implements RentalUIConst
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		readExtensions();
+		//readExtensions();
+		readPalette();
 	}
 
 	private void readExtensions() {
@@ -44,8 +55,24 @@ public class RentalUIActivator extends AbstractUIPlugin implements RentalUIConst
 				System.out.println("Plugin : " + e.getNamespaceIdentifier() + ", Vue : " + e.getAttribute("name"));
 			}
 		}
-		
-		
+	}
+	
+	private void readPalette() {
+		IExtensionRegistry reg = Platform.getExtensionRegistry();
+		for (IConfigurationElement e : reg.getConfigurationElementsFor("com.sogeti.rental.ui.palette")) {
+			String id = e.getAttribute("id");
+			
+			PaletteDescriptor paletteDescriptor = new PaletteDescriptor();
+			paletteDescriptor.setId(e.getAttribute("id"));
+			paletteDescriptor.setName(e.getAttribute("name"));
+			try {
+				paletteDescriptor.setProvider((IColorProvider) e.createExecutableExtension("paletteClass"));
+			} catch (CoreException ex) {
+				getLog().log(new Status(IStatus.ERROR, e.getNamespaceIdentifier(), "Unable to load palette.", ex));
+			}
+			
+			paletteManager.put(id, paletteDescriptor);
+		}
 	}
 
 	/*
@@ -74,6 +101,11 @@ public class RentalUIActivator extends AbstractUIPlugin implements RentalUIConst
 		reg.put(IMG_RENTAL, ImageDescriptor.createFromURL(b.getEntry(IMG_RENTAL)));
 		reg.put(IMG_OBJECT, ImageDescriptor.createFromURL(b.getEntry(IMG_OBJECT)));
 		reg.put(IMG_AGENCY, ImageDescriptor.createFromURL(b.getEntry(IMG_AGENCY)));
+	}
+
+	public Map<String, PaletteDescriptor> getPaletteManager() {
+		
+		return paletteManager;
 	}
 
 }

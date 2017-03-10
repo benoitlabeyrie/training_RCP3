@@ -6,6 +6,7 @@ import org.eclipse.jface.resource.StringConverter;
 import org.eclipse.swt.graphics.RGB;
 
 import com.sogeti.rental.ui.RentalUIActivator;
+import com.sogeti.rental.ui.palette.DefaultPalette;
 
 public class RentalDefaultPreferences extends AbstractPreferenceInitializer {
 
@@ -19,6 +20,7 @@ public class RentalDefaultPreferences extends AbstractPreferenceInitializer {
 		store.setDefault(RentalPreferences.PREFS_CUSTOMERS, StringConverter.asString(new RGB(92, 120, 10)));
 		store.setDefault(RentalPreferences.PREFS_RENTALS, StringConverter.asString(new RGB(80, 20, 70)));
 		store.setDefault(RentalPreferences.PREFS_OBJECTS, StringConverter.asString(new RGB(40, 100, 30)));
+		store.setDefault(RentalColorPreferences.PREF_PALETTE, "com.sogeti.rental.ui.palettes.default");
 	}
 
 }
